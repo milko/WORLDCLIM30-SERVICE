@@ -1,0 +1,239 @@
+TGeographicFeatures (10.5)
+v7
+r0
+t299588219.955595
+cCheck dependencies
+cCompileC "build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/main.o" /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+cCompileC "build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/main.o" /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp normal i386 c++ com.apple.compilers.gcc.4_2
+cCompileC "build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/main.o" /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp normal ppc c++ com.apple.compilers.gcc.4_2
+cLd "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/GeographicFeatures" normal i386
+cLd "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/GeographicFeatures" normal x86_64
+cLd "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/GeographicFeatures" normal ppc
+cCreateUniversalBinary /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures normal "x86_64 i386 ppc"
+cGenerateDSYMFile /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures.dSYM /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures
+
+N/Developer/SDKs/MacOSX10.5.sdk
+c000000004A49A9E400000000000000EE
+t1246341604
+s238
+
+N/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/CoreServices.framework/Headers/CoreServices.h
+c0000000047BAD4120000000000000400
+t1203426322
+s1024
+
+N/Developer/SDKs/MacOSX10.6.sdk
+c000000004A769DAB00000000000000EE
+t1249287595
+s238
+
+N/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/CoreServices.framework/Headers/CoreServices.h
+c000000004CC3FFFE0000000000000401
+t1287913470
+s1025
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/Constants.h
+c000000004B460F78000000000000185F
+t1262882680
+s6239
+i<iostream>
+i<fstream>
+i<sstream>
+i<string>
+i<CoreServices/CoreServices.h>
+i"Structures.h"
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/Errors.h
+c000000004B45BED90000000000000338
+t1262862041
+s824
+i<iostream>
+i<fstream>
+i<sstream>
+i<string>
+i<CoreServices/CoreServices.h>
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/Structures.h
+c000000004B45C5D40000000000000C29
+t1262863828
+s3113
+i<iostream>
+i<fstream>
+i<sstream>
+i<string>
+i<CoreServices/CoreServices.h>
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/GeographicFeatures
+t1277895419
+s38792
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/GeographicFeatures.LinkFileList
+c000000004C2B22F900000000000000A3
+t1277895417
+s163
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/main.o
+t1277895419
+s144040
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/GeographicFeatures
+t1277895419
+s33560
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/GeographicFeatures.LinkFileList
+c000000004C2B22F900000000000000A2
+t1277895417
+s162
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/main.o
+t1277895419
+s144248
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/GeographicFeatures
+t1277895419
+s39568
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/GeographicFeatures.LinkFileList
+c000000004C2B22F900000000000000A5
+t1277895417
+s165
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/main.o
+t1277895419
+s148328
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures
+t1277895419
+s119576
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures.dSYM
+t1277895419
+s102
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.6/GeographicFeatures
+t1277895266
+s120036
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.6/GeographicFeatures.dSYM
+t1277895266
+s102
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp
+c000000004C2B1E5B0000000000005DD5
+t1277894235
+s24021
+i<iostream>
+i<fstream>
+i<sstream>
+i<string>
+i<CoreServices/CoreServices.h>
+i"Errors.h"
+i"Constants.h"
+
+CCheck dependencies
+r0
+lSLF07#2@18"Check dependencies299588217#299588217#0(0"0(0#1#0"4300911832#0"0#
+
+CCompileC "build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/main.o" /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp normal i386 c++ com.apple.compilers.gcc.4_2
+s299588217.833104
+e299588219.612691
+r1
+xCompileC
+xbuild/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/main.o
+x/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp
+xnormal
+xi386
+xc++
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@81"Compile /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp299588217#299588219#0(0"0(0#0#73"/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp4300911832#1878"    cd /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c++ -arch i386 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -fvisibility-inlines-hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/GeographicFeatures-generated-files.hmap" "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/GeographicFeatures-own-target-headers.hmap" "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/GeographicFeatures-all-target-headers.hmap" -iquote "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/GeographicFeatures-project-headers.hmap" -F/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5 -I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/include "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/DerivedSources/i386" "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/DerivedSources" -c /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp -o "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/main.o"0#
+
+CCompileC "build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/main.o" /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp normal ppc c++ com.apple.compilers.gcc.4_2
+s299588217.834336
+e299588219.715889
+r1
+xCompileC
+xbuild/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/main.o
+x/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp
+xnormal
+xppc
+xc++
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@81"Compile /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp299588217#299588219#0(0"0(0#0#73"/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp4300911832#1885"    cd /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c++ -arch ppc -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -mtune=G5 -fvisibility=hidden -fvisibility-inlines-hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/GeographicFeatures-generated-files.hmap" "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/GeographicFeatures-own-target-headers.hmap" "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/GeographicFeatures-all-target-headers.hmap" -iquote "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/GeographicFeatures-project-headers.hmap" -F/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5 -I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/include "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/DerivedSources/ppc" "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/DerivedSources" -c /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp -o "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/main.o"0#
+
+CCompileC "build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/main.o" /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+s299588217.831685
+e299588219.665347
+r1
+xCompileC
+xbuild/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/main.o
+x/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@81"Compile /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp299588217#299588219#0(0"0(0#0#73"/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp4300911832#1884"    cd /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c++ -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -fvisibility=hidden -fvisibility-inlines-hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/GeographicFeatures-generated-files.hmap" "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/GeographicFeatures-own-target-headers.hmap" "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/GeographicFeatures-all-target-headers.hmap" -iquote "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/GeographicFeatures-project-headers.hmap" -F/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5 -I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/include "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/DerivedSources/x86_64" "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/DerivedSources" -c /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp -o "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/main.o"0#
+
+CCreateUniversalBinary /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures normal "x86_64 i386 ppc"
+s299588219.886307
+e299588219.891964
+r1
+xCreateUniversalBinary
+x/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures
+xnormal
+xx86_64 i386 ppc
+lSLF07#2@84"CreateUniversalBinary build/Release/10.5/GeographicFeatures normal "x86_64 i386 ppc"299588219#299588219#0(0"0(0#0#80"/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/x86_64 i386 ppc4300911832#741"    cd /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures    /usr/bin/lipo -create "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/GeographicFeatures" "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/GeographicFeatures" "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/GeographicFeatures" -output /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures0#
+
+CCreateUniversalBinary /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures normal "x86_64 i386"
+r0
+
+CCreateUniversalBinary /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.6/GeographicFeatures normal "x86_64 i386 ppc"
+r0
+
+CGenerateDSYMFile /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures.dSYM /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures
+s299588219.892031
+e299588219.955538
+r1
+xGenerateDSYMFile
+x/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures.dSYM
+x/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures
+lSLF07#2@97"GenerateDSYMFile build/Release/10.5/GeographicFeatures.dSYM build/Release/10.5/GeographicFeatures299588219#299588219#0(0"0(0#0#102"/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures4300911832#318"    cd /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures    /Developer/usr/bin/dsymutil /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures -o /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5/GeographicFeatures.dSYM0#
+
+CGenerateDSYMFile /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.6/GeographicFeatures.dSYM /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.6/GeographicFeatures
+r0
+
+CLd "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/GeographicFeatures" normal i386
+s299588219.612920
+e299588219.767033
+r1
+xLd
+x/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/GeographicFeatures
+xnormal
+xi386
+old: warning: directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -L not found
+old: warning: directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -F not found
+lSLF07#2@179"Link /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/GeographicFeatures299588219#299588219#0(264"ld: warning: directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -L not foundld: warning: directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -F not found2(22@118"Directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -L not found299588219#0#132#0(6@0"299588219#0#0#0#0#0"0(22@118"Directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -F not found299588219#132#132#0(6@0"299588219#0#0#0#0#0"0(0#0#0"4300911832#774"    cd /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Developer/usr/bin/g++-4.2 -arch i386 -isysroot /Developer/SDKs/MacOSX10.5.sdk -L/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5 -F/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5 -filelist "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/GeographicFeatures.LinkFileList" -mmacosx-version-min=10.5 -o "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/i386/GeographicFeatures"0#
+
+CLd "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/GeographicFeatures" normal ppc
+s299588219.716001
+e299588219.886216
+r1
+xLd
+x/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/GeographicFeatures
+xnormal
+xppc
+old: warning: directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -L not found
+old: warning: directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -F not found
+lSLF07#2@178"Link /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/GeographicFeatures299588219#299588219#0(264"ld: warning: directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -L not foundld: warning: directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -F not found2(22@118"Directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -L not found299588219#0#132#0(6@0"299588219#0#0#0#0#0"0(22@118"Directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -F not found299588219#132#132#0(6@0"299588219#0#0#0#0#0"0(0#0#0"4300911832#771"    cd /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Developer/usr/bin/g++-4.2 -arch ppc -isysroot /Developer/SDKs/MacOSX10.5.sdk -L/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5 -F/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5 -filelist "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/GeographicFeatures.LinkFileList" -mmacosx-version-min=10.5 -o "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/ppc/GeographicFeatures"0#
+
+CLd "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/GeographicFeatures" normal x86_64
+s299588219.665455
+e299588219.837854
+r1
+xLd
+x/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/GeographicFeatures
+xnormal
+xx86_64
+old: warning: directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -L not found
+old: warning: directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -F not found
+lSLF07#2@181"Link /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/GeographicFeatures299588219#299588219#0(264"ld: warning: directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -L not foundld: warning: directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -F not found2(22@118"Directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -L not found299588219#0#132#0(6@0"299588219#0#0#0#0#0"0(22@118"Directory '/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5' following -F not found299588219#132#132#0(6@0"299588219#0#0#0#0#0"0(0#0#0"4300911832#780"    cd /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Developer/usr/bin/g++-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.5.sdk -L/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5 -F/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Release/10.5 -filelist "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/GeographicFeatures.LinkFileList" -mmacosx-version-min=10.5 -o "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Release/GeographicFeatures (10.5).build/Objects-normal/x86_64/GeographicFeatures"0#
+

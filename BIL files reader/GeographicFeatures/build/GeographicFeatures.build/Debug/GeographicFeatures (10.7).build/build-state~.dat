@@ -1,0 +1,138 @@
+TGeographicFeatures (10.7)
+v5
+r1
+cCheck dependencies
+cCompileC "build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/Objects-normal/i386/main.o" /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
+cLd /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Debug/GeographicFeatures normal i386
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk
+c000000004F29C61A00000000000000EE
+t1328137754
+s238
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/CoreServices.framework/Headers/CoreServices.h
+c000000004F59CB460000000000000401
+t1331284806
+s1025
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/Constants.h
+c000000004B460F78000000000000185F
+t1262882680
+s6239
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/Errors.h
+c000000004B45BED90000000000000338
+t1262862041
+s824
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Debug/GeographicFeatures
+t2
+s0
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/Objects-normal/i386/GeographicFeatures.LinkFileList
+c000000004F5A280500000000000000A1
+t1331308549
+s161
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/Objects-normal/i386/main.o
+t2
+s0
+
+N/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp
+c000000004C2B1E5B0000000000005DD5
+t1277894235
+s24021
+i<iostream>
+i<fstream>
+i<sstream>
+i<string>
+i<CoreServices/CoreServices.h>
+i"Errors.h"
+i"Constants.h"
+
+CBuild AST from /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp
+r0
+
+CCheck dependencies
+r0
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesbfb844855f0ab541^d5201c865f0ab541^---0#1#0#--18"Check dependencies36"D9616980-B9F4-4AF7-98D2-3551AF4D1147-
+
+CCompileC "build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/Objects-normal/i386/main.o" /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s353001349.908810
+e353001351.945138
+r1
+xCompileC
+xbuild/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/Objects-normal/i386/main.o
+x/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp
+xnormal
+xi386
+xc++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:180:12: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+o        if( error = CheckArguments( argc, argv ) )
+o            ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:180:12: note: place parentheses around the assignment to silence this warning
+o        if( error = CheckArguments( argc, argv ) )
+o                  ^
+o            (                                   )
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:180:12: note: use '==' to turn this assignment into an equality comparison
+o        if( error = CheckArguments( argc, argv ) )
+o                  ^
+o                  ==
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:186:12: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+o        if( error = GetLatitude( argv[ 2 ], &theLatitude ) )
+o            ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:186:12: note: place parentheses around the assignment to silence this warning
+o        if( error = GetLatitude( argv[ 2 ], &theLatitude ) )
+o                  ^
+o            (                                             )
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:186:12: note: use '==' to turn this assignment into an equality comparison
+o        if( error = GetLatitude( argv[ 2 ], &theLatitude ) )
+o                  ^
+o                  ==
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:192:12: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+o        if( error = GetLongitude( argv[ 3 ], &theLongitude ) )
+o            ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:192:12: note: place parentheses around the assignment to silence this warning
+o        if( error = GetLongitude( argv[ 3 ], &theLongitude ) )
+o                  ^
+o            (                                               )
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:192:12: note: use '==' to turn this assignment into an equality comparison
+o        if( error = GetLongitude( argv[ 3 ], &theLongitude ) )
+o                  ^
+o                  ==
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:198:12: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+o        if( error = SetCoordinate( argv[ 1 ], theLatitude, theLongitude, &theAltitude ) )
+o            ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:198:12: note: place parentheses around the assignment to silence this warning
+o        if( error = SetCoordinate( argv[ 1 ], theLatitude, theLongitude, &theAltitude ) )
+o                  ^
+o            (                                                                          )
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:198:12: note: use '==' to turn this assignment into an equality comparison
+o        if( error = SetCoordinate( argv[ 1 ], theLatitude, theLongitude, &theAltitude ) )
+o                  ^
+o                  ==
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:209:13: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+o                if( error = SetWORLDCLIMFeature( argv[ 1 ], theLatitude, theLongitude, feature ) )
+o                    ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:209:13: note: place parentheses around the assignment to silence this warning
+o                if( error = SetWORLDCLIMFeature( argv[ 1 ], theLatitude, theLongitude, feature ) )
+o                          ^
+o                    (                                                                           )
+o/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:209:13: note: use '==' to turn this assignment into an equality comparison
+o                if( error = SetWORLDCLIMFeature( argv[ 1 ], theLatitude, theLongitude, feature ) )
+o                          ^
+o                          ==
+o5 warnings generated.
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection81"Compile /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp1cede8855f0ab541^edf2f1875f0ab541^-4541"/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:180:12: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]        if( error = CheckArguments( argc, argv ) )            ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:180:12: note: place parentheses around the assignment to silence this warning        if( error = CheckArguments( argc, argv ) )                  ^            (                                   )/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:180:12: note: use '==' to turn this assignment into an equality comparison        if( error = CheckArguments( argc, argv ) )                  ^                  ==/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:186:12: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]        if( error = GetLatitude( argv[ 2 ], &theLatitude ) )            ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:186:12: note: place parentheses around the assignment to silence this warning        if( error = GetLatitude( argv[ 2 ], &theLatitude ) )                  ^            (                                             )/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:186:12: note: use '==' to turn this assignment into an equality comparison        if( error = GetLatitude( argv[ 2 ], &theLatitude ) )                  ^                  ==/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:192:12: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]        if( error = GetLongitude( argv[ 3 ], &theLongitude ) )            ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:192:12: note: place parentheses around the assignment to silence this warning        if( error = GetLongitude( argv[ 3 ], &theLongitude ) )                  ^            (                                               )/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:192:12: note: use '==' to turn this assignment into an equality comparison        if( error = GetLongitude( argv[ 3 ], &theLongitude ) )                  ^                  ==/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:198:12: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]        if( error = SetCoordinate( argv[ 1 ], theLatitude, theLongitude, &theAltitude ) )            ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:198:12: note: place parentheses around the assignment to silence this warning        if( error = SetCoordinate( argv[ 1 ], theLatitude, theLongitude, &theAltitude ) )                  ^            (                                                                          )/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:198:12: note: use '==' to turn this assignment into an equality comparison        if( error = SetCoordinate( argv[ 1 ], theLatitude, theLongitude, &theAltitude ) )                  ^                  ==/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:209:13: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]                if( error = SetWORLDCLIMFeature( argv[ 1 ], theLatitude, theLongitude, feature ) )                    ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:209:13: note: place parentheses around the assignment to silence this warning                if( error = SetWORLDCLIMFeature( argv[ 1 ], theLatitude, theLongitude, feature ) )                          ^                    (                                                                           )/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp:209:13: note: use '==' to turn this assignment into an equality comparison                if( error = SetWORLDCLIMFeature( argv[ 1 ], theLatitude, theLongitude, feature ) )                          ^                          ==5 warnings generated.5(36%IDEClangDiagnosticActivityLogMessage2@68"Using the result of an assignment as a condition without parentheses-353001351#18446744073709551615#0#2(2@63"Place parentheses around the assignment to silence this warning-353001351#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^179#11#179#11#5873#0#14"Semantic Issue2(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^179#5#179#5#5867#0#3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^179#41#179#41#5903#0#-2@60"Use '==' to turn this assignment into an equality comparison-353001351#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^179#11#179#11#5873#0#14"Semantic Issue1(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^179#11#179#12#5873#0#-1#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^179#11#179#11#5873#0#14"Semantic Issue1(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^179#5#179#41#5867#35#-2@68"Using the result of an assignment as a condition without parentheses-353001351#18446744073709551615#0#2(2@63"Place parentheses around the assignment to silence this warning-353001351#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^185#11#185#11#5982#0#14"Semantic Issue2(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^185#5#185#5#5976#0#3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^185#51#185#51#6022#0#-2@60"Use '==' to turn this assignment into an equality comparison-353001351#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^185#11#185#11#5982#0#14"Semantic Issue1(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^185#11#185#12#5982#0#-1#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^185#11#185#11#5982#0#14"Semantic Issue1(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^185#5#185#51#5976#45#-2@68"Using the result of an assignment as a condition without parentheses-353001351#18446744073709551615#0#2(2@63"Place parentheses around the assignment to silence this warning-353001351#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^191#11#191#11#6102#0#14"Semantic Issue2(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^191#5#191#5#6096#0#3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^191#53#191#53#6144#0#-2@60"Use '==' to turn this assignment into an equality comparison-353001351#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^191#11#191#11#6102#0#14"Semantic Issue1(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^191#11#191#12#6102#0#-1#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^191#11#191#11#6102#0#14"Semantic Issue1(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^191#5#191#53#6096#47#-2@68"Using the result of an assignment as a condition without parentheses-353001351#18446744073709551615#0#2(2@63"Place parentheses around the assignment to silence this warning-353001351#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^197#11#197#11#6225#0#14"Semantic Issue2(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^197#5#197#5#6219#0#3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^197#80#197#80#6294#0#-2@60"Use '==' to turn this assignment into an equality comparison-353001351#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^197#11#197#11#6225#0#14"Semantic Issue1(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^197#11#197#12#6225#0#-1#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^197#11#197#11#6225#0#14"Semantic Issue1(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^197#5#197#80#6219#74#-2@68"Using the result of an assignment as a condition without parentheses-353001351#18446744073709551615#0#2(2@63"Place parentheses around the assignment to silence this warning-353001351#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^208#12#208#12#6483#0#14"Semantic Issue2(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^208#6#208#6#6477#0#3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^208#82#208#82#6553#0#-2@60"Use '==' to turn this assignment into an equality comparison-353001351#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^208#12#208#12#6483#0#14"Semantic Issue1(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^208#12#208#13#6483#0#-1#27"com.apple.dt.IDE.diagnostic3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^208#12#208#12#6483#0#14"Semantic Issue1(3@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^208#6#208#82#6477#75#-0#0#0#-19%DVTDocumentLocation4@89"file://localhost/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp0000000000000000^3047"CompileC "build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/Objects-normal/i386/main.o" main.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch i386 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions -D_GLIBCXX_DEBUG=1 -D_GLIBCXX_DEBUG_PEDANTIC=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -fvisibility=hidden -fvisibility-inlines-hidden -Wno-conversion -Wno-sign-conversion -iquote "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/GeographicFeatures-generated-files.hmap" "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/GeographicFeatures-own-target-headers.hmap" "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/GeographicFeatures-all-target-headers.hmap" -iquote "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/GeographicFeatures-project-headers.hmap" -I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Debug/include "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/DerivedSources/i386" "-I/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/DerivedSources" -F/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Debug -MMD -MT dependencies -MF "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/Objects-normal/i386/main.d" --serialize-diagnostics "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/Objects-normal/i386/main.dia" -c /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/main.cpp -o "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/Objects-normal/i386/main.o"36"D14D9A98-FA5C-49A6-A085-BA13FD9051FF-
+
+CLd /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Debug/GeographicFeatures normal i386
+s353001351.952170
+e353001352.988661
+r1
+xLd
+x/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Debug/GeographicFeatures
+xnormal
+xi386
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"Link /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Debug/GeographicFeatures64e9f3875f0ab541^fc1afd885f0ab541^---0#0#0#--859"Ld build/Debug/GeographicFeatures normal i386    cd /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -L/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Debug -F/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Debug -filelist "/Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/GeographicFeatures.build/Debug/GeographicFeatures (10.7).build/Objects-normal/i386/GeographicFeatures.LinkFileList" -mmacosx-version-min=10.7 -o /Library/WebServer/Library/MyWrapper/Projects/GeographicFeatures/build/Debug/GeographicFeatures36"32B4AD30-2C8A-4FE5-AC29-213A6DABA1A5-
+
