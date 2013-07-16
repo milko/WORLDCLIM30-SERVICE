@@ -23,10 +23,24 @@
  *======================================================================================*/
 
 /**
- * Default encoding.
+ * Default server DSN.
  *
- * This tag indicates the default encoding (JSON).
+ * This tag indicates the default MongoDB server connection string.
  */
-define( "kDEFAULT_ENCODING",				"json" );
+define( "kDEFAULT_SERVER",					"mongodb://192.168.181.101:27017" );
+
+/**
+ * Default database name.
+ *
+ * This tag indicates the default database name.
+ */
+define( "kDEFAULT_DATABASE",				"GEO" );
+
+/**
+ * Default collection name.
+ *
+ * This tag indicates the default collection name.
+ */
+define( "kDEFAULT_COLLECTION",				"WORLDCLIM30" );
 
 ?>

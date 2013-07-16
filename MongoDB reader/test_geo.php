@@ -116,11 +116,14 @@ try
 	// Test geoNear.
 	//
 	echo( "\nGEONEAR\n" );
+	$maxdist = 1000;
 	$command = array
 	(
 		'geoNear' => 'WORLDCLIM30',
 		'near' => array( -16.6422, 28.2727 ),
 		'spherical' => TRUE,
+		'distanceMultiplier' => 6378100,
+		'maxDistance' => ($maxdist / 6378100),
 		'num' => 5
 	);
 	print_r( $command );
@@ -133,7 +136,7 @@ try
 		$line[0] = $record[ 'obj' ][ 'pt' ][ 'coordinates' ][ 0 ];
 		$line[1] = $record[ 'obj' ][ 'pt' ][ 'coordinates' ][ 1 ];
 		$line[2] = $record[ 'obj' ][ 'alt' ];
-		$line[3] = $record[ 'dis' ];
+		$line[3] = round( $record[ 'dis' ] );
 		$records[] = $line;
 	}
 	print_r( $records );

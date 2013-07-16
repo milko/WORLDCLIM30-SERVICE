@@ -19,26 +19,30 @@
  */
 
 /*=======================================================================================
- *	DEFAULT WEB-SERVICE OPERATION PARAMETERS											*
+ *	DEFAULT OPERATION PARAMETERS														*
  *======================================================================================*/
+
+/**
+ * Ping.
+ *
+ * This is the tag that represents the PING web-service operation, which returns 'pong'.
+ *
+ * Type: no data.
+ */
+define( "kAPI_OP_PING",				'ping' );
 
 /**
  * Help.
  *
  * This is the tag that represents the HELP web-service operation, which returns the list
  * of supported operations and options.
+ *
+ * Type: no data.
  */
 define( "kAPI_OP_HELP",				'help' );
 
-/**
- * Ping.
- *
- * This is the tag that represents the PING web-service operation, which returns 'pong'.
- */
-define( "kAPI_OP_PING",				'ping' );
-
 /*=======================================================================================
- *	WEB-SERVICE OPERATION PARAMETERS													*
+ *	OPERATION PARAMETERS																*
  *======================================================================================*/
 
 /**
@@ -54,7 +58,7 @@ define( "kAPI_OP_WITHIN",			'within' );
 /**
  * Intersection.
  *
- * Retrieve elements intersecting by the provided geometry.
+ * Retrieve elements intersecting the provided geometry.
  *
  * Type: no data.
  */
@@ -80,62 +84,21 @@ define( "kAPI_OP_NEAR",				'near' );
 define( "kAPI_OP_COUNT",			'count' );
 
 /*=======================================================================================
- *	GEOMETRY AND LOCATION REQUEST PARAMETERS											*
+ *	GEOMETRY PARAMETERS																	*
  *======================================================================================*/
 
 /**
- * Point latitude.
+ * Point.
  *
- * Latitude of the provided point.
+ * A point expressed as a pair of coordinates, longitude and latitude in that order,
+ * separated by a comma.
  *
- * Type: float.
+ * Examples:
+ * -16.6422,28.2727
+ *
+ * Type: string.
  */
-define( "kAPI_POINT_LATITUDE",		'lat' );
-
-/**
- * Point longitude.
- *
- * Longitude of the provided point.
- *
- * Type: float.
- */
-define( "kAPI_POINT_LONGITUDE",		'lon' );
-
-/**
- * Rect left.
- *
- * Minimum longitude of the provided rect.
- *
- * Type: float.
- */
-define( "kAPI_RECT_XMIN",			'xmin' );
-
-/**
- * Rect right.
- *
- * Maximum longitude of the provided rect.
- *
- * Type: float.
- */
-define( "kAPI_RECT_XMAX",			'xmax' );
-
-/**
- * Rect top.
- *
- * Maximum latitude of the provided rect.
- *
- * Type: float.
- */
-define( "kAPI_RECT_YMAX",			'ymax' );
-
-/**
- * Rect bottom.
- *
- * Minimum latitude of the provided rect.
- *
- * Type: float.
- */
-define( "kAPI_RECT_YMIN",			'ymin' );
+define( "kAPI_GEOMETRY_POINT",		'point' );
 
 
 ?>
