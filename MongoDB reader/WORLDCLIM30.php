@@ -41,12 +41,26 @@ require_once( "CWorldclimService.php" );
 // Instantiate service.
 //
 $wrapper = new CWorldclimService( kDEFAULT_SERVER, kDEFAULT_DATABASE, kDEFAULT_COLLECTION );
+if( $wrapper->Status() == kAPI_STATE_ERROR )
+	exit( json_encode( $wrapper->getArrayCopy() ) );								// ==>
 
 //
 // Handle request.
 //
 $wrapper->HandleRequest();
 
-exit;
+//
+// Handle success.
+//
+if( $wrapper->Status() == kAPI_STATE_OK )
+{
+	//
+	// Handle help.
+	//
+	if( $wrapper->Operation() == kAPI_OP_HELP )
+		exit( $wrapper->getArrayCopy()[ kAPI_RESPONSE_DATA ] );						// ==>
+}
+
+exit( json_encode( $wrapper->getArrayCopy() ) );									// ==>
 
 ?>
