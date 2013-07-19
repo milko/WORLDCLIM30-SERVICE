@@ -1007,6 +1007,33 @@ class CBilReader implements Iterator
 	protected function _Longitude( $theDelta = 0 )
 	{
 		//
+		// Get absolute seconds.
+		//
+		$position = (($this->mOrigin[ 0 ] * 3600) / $this->mSeconds)
+				  + $this->mCol
+//				  + $theDelta;
+				  + 1;
+echo( "$position<br>" );
+		
+		//
+		// Get degrees.
+		//
+		$tmp = ($position * $this->mSeconds) / 3600;
+		$degrees = ( $position >= 0 )
+				 ? floor( $tmp )
+				 : ceil( $tmp );
+echo( "$degrees<br>" );
+		
+		//
+		// Update position.
+		//
+		$position -= ($degrees * 3600);
+echo( "$position<br>" );
+exit;
+		
+		
+		
+		//
 		// Init local storage.
 		//
 		$seconds = ($this->Column() * $this->mSeconds) + $theDelta;
