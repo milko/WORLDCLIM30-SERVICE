@@ -43,4 +43,22 @@ define( "kDEFAULT_DATABASE",				"GEO" );
  */
 define( "kDEFAULT_COLLECTION",				"WORLDCLIM30" );
 
+/*=======================================================================================
+ *	BUFFER SIZES																		*
+ *======================================================================================*/
+
+/**
+ * Read buffer.
+ *
+ * This represents the number of tiles to be read each time from each file.
+ */
+define( "kBUF_TILE_COUNT",				4320 );
+
+/**
+ * Records buffer.
+ *
+ * This represents the number of records to buffer.
+ */
+define( "kBUF_RECORD_COUNT",			4096 );
+
 ?>

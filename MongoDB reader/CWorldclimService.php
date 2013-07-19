@@ -770,12 +770,12 @@ class CWorldclimService extends ArrayObject
 	 * @param mixed					$theValue			Status element value.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
-	 * @access public
+	 * @access protected
 	 * @return mixed
 	 *
 	 * @uses _ManageArrayMember()
 	 */
-	public function _Status( $theIndex = NULL, $theValue = NULL, $getOld = FALSE )
+	protected function _Status( $theIndex = NULL, $theValue = NULL, $getOld = FALSE )
 	{
 		//
 		// Set or retrieve status.
@@ -836,12 +836,12 @@ class CWorldclimService extends ArrayObject
 	 * @param mixed					$theValue			Connection element value.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
-	 * @access public
+	 * @access protected
 	 * @return mixed
 	 *
 	 * @uses _ManageArrayMember()
 	 */
-	public function _Connection( $theIndex = NULL, $theValue = NULL, $getOld = FALSE )
+	protected function _Connection( $theIndex = NULL, $theValue = NULL, $getOld = FALSE )
 	{
 		//
 		// Cast to string.
@@ -892,12 +892,12 @@ class CWorldclimService extends ArrayObject
 	 * @param mixed					$theValue			Request element value.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
-	 * @access public
+	 * @access protected
 	 * @return mixed
 	 *
 	 * @uses _ManageArrayMember()
 	 */
-	public function _Request( $theIndex = NULL, $theValue = NULL, $getOld = FALSE )
+	protected function _Request( $theIndex = NULL, $theValue = NULL, $getOld = FALSE )
 	{
 		return $this->_ManageArrayMember(
 				$this->mRequest, $theIndex, $theValue, $getOld );					// ==>

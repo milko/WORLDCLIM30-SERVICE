@@ -21,6 +21,13 @@
  *======================================================================================*/
 
 //
+// Files path.
+//
+// This defines the base path of the WORLDCLIM files.
+//
+define( "kPath", "/Volumes/Data/GeographicFeatures/WORLDCLIM30" );
+
+//
 // Database name.
 //
 define( "kDB", "GEO" );
@@ -28,13 +35,13 @@ define( "kDB", "GEO" );
 //
 // Collection name.
 //
-define( "kCOLL", "LAYERS-30" );
+define( "kCOLL", "WORLDCLIM30" );
 
 //
 // Chunk size, for buffers and record batches.
 //
-define( "kChunk", 8640 );						// Read buffer size (must be even).
-define( "kRecs", 4096 );						// Record buffer size.
+define( "kChunk", 8192 );						// Read buffer size (must be even).
+define( "kRecs", 1000 );						// Record buffer size.
 
 //
 // Number of grid elements.
