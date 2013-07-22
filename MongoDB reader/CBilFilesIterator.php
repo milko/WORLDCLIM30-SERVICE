@@ -1,9 +1,9 @@
 <?php
 
 /**
- * <i>CBilReader</i> class definition.
+ * <i>CBilFilesIterator</i> class definition.
  *
- * This file contains the class definition of <b>CBilReader</b> which represents a
+ * This file contains the class definition of <b>CBilFilesIterator</b> which represents a
  * <tt>.bil</tt> file reader.
  *
  *	@package	GEO
@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *									CBilReader.php										*
+ *								CBilFilesIterator.php									*
  *																						*
  *======================================================================================*/
 
@@ -24,18 +24,18 @@
  *
  * This include file contains all class definitions.
  */
-require_once( "CBilReader.inc.php" );
+require_once( "CBilFilesIterator.inc.php" );
 
 /**
  * <h4><tt>.bil</tt> file reader</h4>
  *
  * The main duty of this class is to open a series of <tt>.bil</tt> files and read
- * sequentially from all of them returning the values in a specific order.
+ * sequentially from all of them returning the corresponding values.
  *
  *	@package	GEO
  *	@subpackage	Framework
  */
-class CBilReader implements Iterator
+class CBilFilesIterator implements Iterator
 {
 	/**
 	 * <b>Seconds</b>
@@ -54,6 +54,24 @@ class CBilReader implements Iterator
 	 * @var array
 	 */
 	private $mOrigin = Array();
+
+	/**
+	 * <b>Buffer tiles</b>
+	 *
+	 * This data member holds the buffer number of tiles.
+	 *
+	 * @var integer
+	 */
+	private $mBufTiles = NULL;
+
+	/**
+	 * <b>Skip</b>
+	 *
+	 * This data member holds the number of tiles to skip.
+	 *
+	 * @var integer
+	 */
+	private $mSkip = NULL;
 
 	/**
 	 * <b>Cols</b>
@@ -85,7 +103,6 @@ class CBilReader implements Iterator
 	 *	<li><tt>{@link kFILE_BANDS}</tt>: Number of bands per tile.
 	 *	<li><tt>{@link kFILE_BPACK}</tt>: Number of bytes per band.
 	 *	<li><tt>{@link kFILE_NODATA}</tt>: No data value.
-	 *	<li><tt>{@link kFILE_SIGNED}</tt>: Signed value flag.
 	 *	<li><tt>{@link kFILE_BUFFER}</tt>: Read buffer.
 	 * </ul>
 	 *
@@ -154,6 +171,8 @@ class CBilReader implements Iterator
 	 *	<li><b>$theOrigin</b>: The vertex coordinates of the first tile in degrees,
 	 *		expressed as longitude and latitude.
 	 *	<li><b>$theRange</b>: The longitude and latitude range in degrees.
+	 *	<li><b>$theStart</b>: The absolute tile position from which to start reading:
+	 *		the value is zero based.
 	 * </ul>
 	 *
 	 * The provided values will be set in the object and cannot be changed: these determine
@@ -165,15 +184,19 @@ class CBilReader implements Iterator
 	 *	<li><tt>$theBuffer = 4320;</tt>.
 	 *	<li><tt>$theOrigin = array( -180, 90 );</tt>.
 	 *	<li><tt>$theRange = array( 360, 150 );</tt>.
+	 *	<li><tt>$theStart = 2500;</tt>.
 	 * </ul>
-	 * This corresponds to a map with 43200 horizontal and 18000 vertical tiles.
+	 * This corresponds to a map with 43200 horizontal and 18000 vertical tiles, with data
+	 * starting at tile 2501.
 	 *
 	 * @param integer				$theSeconds			Size of tile in seconds.
 	 * @param integer				$theBuffer			Buffer tiles count.
 	 * @param array					$theOrigin			Origin coordinate in degrees.
 	 * @param array					$theRange			Longitude and latitude range.
+	 * @param integer				$theStart			First tile to read.
 	 */
-	public function __construct( $theSeconds, $theBuffer, $theOrigin, $theRange )
+	public function __construct( $theSeconds, $theBuffer, $theOrigin, $theRange,
+								 $theStart = 0 )
 	{
 		//
 		// Check seconds.
@@ -265,6 +288,11 @@ class CBilReader implements Iterator
 				//
 				$this->mCols = ($theRange[ 0 ] * 3600) / $this->mSeconds;
 				$this->mRows = ($theRange[ 1 ] * 3600) / $this->mSeconds;
+				
+				//
+				// Set start.
+				//
+				$this->mSkip = (int) $theStart;
 			
 			} // Integer buffer tiles.
 		
@@ -394,7 +422,6 @@ class CBilReader implements Iterator
 	 *		<li><tt>V</tt>: unsigned long (always 32 bit, little endian byte order)
 	 *	 </ul>
 	 *	<li><b>$theNull</b>: Value used to indicate no data.
-	 *	<li><b>$isSigned</b>: Flag indicating whether the values are signed or not.
 	 * </ul>
 	 *
 	 * The method will set the files list member and return the entry.
@@ -404,7 +431,6 @@ class CBilReader implements Iterator
 	 * @param integer				$theBands			Bands count.
 	 * @param integer				$theKind			Bands kind.
 	 * @param integer				$theNull			No data value.
-	 * @param boolean				$isSigned			TRUE means signed value.
 	 *
 	 * @access public
 	 * @return array
@@ -415,8 +441,7 @@ class CBilReader implements Iterator
 							 $thePath,
 							 $theBands = 1,
 							 $theKind = 's',
-							 $theNull = -9999,
-							 $isSigned = TRUE )
+							 $theNull = -9999 )
 	{
 		//
 		// Delete entry.
@@ -491,7 +516,6 @@ class CBilReader implements Iterator
 				$file[ kFILE_BANDS ] = (int) $theBands;
 				$file[ kFILE_BPACK ] = (string) $theKind;
 				$file[ kFILE_BSIZE ] = $bytes;
-				$file[ kFILE_SIGNED ] = (boolean) $isSigned;
 				$file[ kFILE_NODATA ] = $theNull;
 				$file[ kFILE_POINTER ] = NULL;
 				$file[ kFILE_BUFFER ] = Array();
@@ -583,29 +607,133 @@ class CBilReader implements Iterator
 	/**
 	 * Return the current tile longitude.
 	 *
-	 * This method can be used to retrieve the current tile longitude, if you provide
-	 * <tt>TRUE</tt> in the provided parameter, the method will return the value in
-	 * degrees, minutes and seconds expressed as an array of four elements in which the
-	 * first is the degrees, the second is the minutes, the third is the seconds and the
-	 * fourth the hemisphere.
+	 * This method can be used to retrieve the current tile longitude, the provided
+	 * reference will receive the decimal degrees value, while the method will return the
+	 * degrees, minutes and seconds value.
 	 *
-	 * @param boolean				$doDMS				TRUE means return DMS.
+	 * @param reference			   &$theDegrees			Receives decimal degrees.
 	 *
 	 * @access public
-	 * @return mixed
+	 * @return string
 	 */
-	public function Longitude()
+	public function Longitude( &$theDegrees )
 	{
 		//
-		// Get longitude.
+		// Get degrees.
 		//
-		$lon = $this->_Longitude();
+		$degrees
+			= $this->_Degrees(
+				$theDegrees, $this->mOrigin[ 0 ], $this->mCol, $this->mSeconds / 2 );
 		
-		$lon[] = $this->mCol;
-		
-		return $lon;
+		return ( $theDegrees < 0 )
+			 ? abs($degrees[ 0 ]).'°'.$degrees[ 1 ]."'".$degrees[ 2 ].'"W'			// ==>
+			 : abs($degrees[ 0 ]).'°'.$degrees[ 1 ]."'".$degrees[ 2 ].'"E';			// ==>
 	
 	} // Longitude.
+
+	 
+	/*===================================================================================
+	 *	Latitude																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return the current tile latitude.
+	 *
+	 * This method can be used to retrieve the current tile latitude, the provided
+	 * reference will receive the decimal degrees value, while the method will return the
+	 * degrees, minutes and seconds value.
+	 *
+	 * @param reference			   &$theDegrees			Receives decimal degrees.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Latitude( &$theDegrees )
+	{
+		//
+		// Get degrees.
+		//
+		$degrees
+			= $this->_Degrees(
+				$theDegrees, $this->mOrigin[ 1 ], $this->mRow, $this->mSeconds / 2 );
+		
+		return ( $theDegrees < 0 )
+			 ? abs($degrees[ 0 ]).'°'.$degrees[ 1 ]."'".$degrees[ 2 ].'"S'			// ==>
+			 : abs($degrees[ 0 ]).'°'.$degrees[ 1 ]."'".$degrees[ 2 ].'"N';			// ==>
+	
+	} // Latitude.
+
+	 
+	/*===================================================================================
+	 *	Bounds																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return the current tile bounds.
+	 *
+	 * This method can be used to retrieve the current tile bounds, the provided
+	 * reference will receive the decimal degrees values, while the method will return the
+	 * degrees, minutes and seconds values.
+	 *
+	 * The returned data will be in the form of a rect where the first point will be the
+	 * top-left vertex and the second point the bottom-right vertex.
+	 *
+	 * @param reference			   &$theDegrees			Receives decimal degrees.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Bounds( &$theDegrees )
+	{
+		//
+		// Get left.
+		//
+		$left_dms
+			= $this->_Degrees(
+				$left_dec, $this->mOrigin[ 0 ], $this->mCol );
+		$left_dms = ( $left_dec < 0 )
+				  ? abs($left_dms[ 0 ]).'°'.$left_dms[ 1 ]."'".$left_dms[ 2 ].'"W'
+				  : abs($left_dms[ 0 ]).'°'.$left_dms[ 1 ]."'".$left_dms[ 2 ].'"E';
+		
+		//
+		// Get right.
+		//
+		$right_dms
+			= $this->_Degrees(
+				$right_dec, $this->mOrigin[ 0 ], $this->mCol, $this->mSeconds );
+		$right_dms = ( $right_dec < 0 )
+				   ? abs($right_dms[ 0 ]).'°'.$right_dms[ 1 ]."'".$right_dms[ 2 ].'"W'
+				   : abs($right_dms[ 0 ]).'°'.$right_dms[ 1 ]."'".$right_dms[ 2 ].'"E';
+		
+		//
+		// Get top.
+		//
+		$top_dms
+			= $this->_Degrees(
+				$top_dec, $this->mOrigin[ 1 ], $this->mRow );
+		$top_dms = ( $top_dec < 0 )
+				 ? abs($top_dms[ 0 ]).'°'.$top_dms[ 1 ]."'".$top_dms[ 2 ].'"N'
+				 : abs($top_dms[ 0 ]).'°'.$top_dms[ 1 ]."'".$top_dms[ 2 ].'"S';
+		
+		//
+		// Get bottom.
+		//
+		$bot_dms
+			= $this->_Degrees(
+				$bot_dec, $this->mOrigin[ 1 ], $this->mRow, $this->mSeconds );
+		$bot_dms = ( $bot_dec < 0 )
+				 ? abs($bot_dms[ 0 ]).'°'.$bot_dms[ 1 ]."'".$bot_dms[ 2 ].'"N'
+				 : abs($bot_dms[ 0 ]).'°'.$bot_dms[ 1 ]."'".$bot_dms[ 2 ].'"S';
+		
+		//
+		// Set decimal rect.
+		//
+		$theDegrees = array( array( $left_dec, $top_dec ), array( $right_dec, $bot_dec ) );
+		
+		return array( array( $left_dms, $top_dms ),
+					  array( $right_dms, $bot_dms ) );								// ==>
+	
+	} // Bounds.
 
 		
 
@@ -633,13 +761,39 @@ class CBilReader implements Iterator
 		//
 		// Reset position.
 		//
-		$this->mRow = $this->mCol =
+		$this->mRow = floor( $this->mSkip / $this->mCols );
+		$this->mCol = $this->mSkip - ( $this->mRow * $this->mCols );
+
+		//
+		// Reset position.
+		//
 		$this->mTileIndex = $this->mTilesCount = 0;
 		
 		//
 		// Rewind files.
 		//
 		$this->_RewindFiles();
+		
+		//
+		// Skip tiles.
+		//
+		if( $this->mSkip )
+		{
+			//
+			// Force load buffers.
+			// This is to correct the tile index within the buffer
+			// only once at rewind time.
+			//
+			$this->_LoadBuffers();
+			
+			//
+			// Set buffer tile index.
+			//
+			$this->mTileIndex
+				= $this->mSkip - ( floor( $this->mSkip / $this->mBufTiles )
+								 * $this->mBufTiles );
+		
+		} // Provided skip value.
 	
 	} // rewind.
 
@@ -683,18 +837,70 @@ class CBilReader implements Iterator
 	public function current()
 	{
 		//
-		// Iterate until a tile with data is found.
+		// Init local storage.
 		//
-		while( ! count( $data = $this->_LoadCurrent() ) )
+		$data = Array();
+		
+		//
+		// Iterate all files.
+		//
+		$keys = array_keys( $this->mFiles );
+		foreach( $keys as $key )
 		{
-			$this->next();
-			$this->valid();
-		}
+			//
+			// Init local references.
+			//
+			$file = & $this->mFiles[ $key ];
+			$buffer = & $file[ kFILE_BUFFER ];
+			$tile = $buffer[ $this->mTileIndex ];
+			
+			//
+			// Handle multiband.
+			//
+			if( is_array( $tile ) )
+			{
+				//
+				// Reindex and check values.
+				//
+				$i = 1;
+				foreach( $tile as $index => $item )
+				{
+					//
+					// Check for no-data.
+					//
+					if( ($item === $file[ kFILE_NODATA ])
+					 || ($item === NULL) )
+						continue;											// =>
+					
+					//
+					// Set data.
+					//
+					$data[ $key ][ $i ] = $tile[ $index ];
+				
+				} // Iterating tile elements.
+						
+			} // Multiband.
+			
+			//
+			// Handle single band.
+			//
+			else
+			{
+				//
+				// Check for no-data.
+				//
+				if( ($tile === $file[ kFILE_NODATA ])
+				 || ($tile === NULL) )
+					continue;												// =>
+				
+				//
+				// Set data.
+				//
+				$data[ $key ] = $tile;
+			
+			} // Singleband.
 		
-		//
-		// Set coordinates.
-		//
-		
+		} // Iterating files.
 		
 		return $data;																// ==>
 	
@@ -771,6 +977,9 @@ class CBilReader implements Iterator
 	 * This method will open all unopened files, or rewind and clear the buffers of all open
 	 * files.
 	 *
+	 * Note that the file will be rewinded to the buffer in which the starting tile is to be
+	 * read.
+	 *
 	 * @access protected
 	 */
 	protected function _RewindFiles()
@@ -808,6 +1017,23 @@ class CBilReader implements Iterator
 				$file[ kFILE_BUFFER ] = Array();
 			
 			} // File was open.
+			
+			//
+			// Skip tiles.
+			//
+			if( $this->mSkip )
+			{
+				//
+				// Calculate skip offset.
+				//
+				$offset = floor( $this->mSkip / $this->mBufTiles );
+				if( $offset )
+					fseek( $file[ kFILE_POINTER ], $offset
+												 * $this->mBufTiles
+												 * $file[ kFILE_BANDS ]
+												 * $file[ kFILE_BSIZE ] );
+			
+			} // SKip tiles.
 		
 		} // Iterating files.
 	
@@ -835,7 +1061,7 @@ class CBilReader implements Iterator
 		if( $this->mTileIndex >= $this->mTilesCount )
 		{
 			//
-			// Init global storage.
+			// Set current tile indexes.
 			//
 			$this->mTileIndex = $this->mTilesCount = 0;
 			
@@ -908,186 +1134,83 @@ class CBilReader implements Iterator
 			
 	} // _LoadBuffers.
 
-	 
-	/*===================================================================================
-	 *	_LoadCurrent																	*
-	 *==================================================================================*/
+		
 
-	/**
-	 * Load current element.
-	 *
-	 * This method will return the current element skipping all non valid data.
-	 * If the method returns an empty array, it means that no valid data was found.
-	 *
-	 * This method is used by {@link current()} to return the first tile that contains at
-	 * least one valid data element.
-	 *
-	 * @access protected
-	 * @return array
-	 */
-	protected function _LoadCurrent()
-	{
-		//
-		// Init local storage.
-		//
-		$data = Array();
-		
-		//
-		// Iterate all files.
-		//
-		$keys = array_keys( $this->mFiles );
-		foreach( $keys as $key )
-		{
-			//
-			// Init local references.
-			//
-			$file = & $this->mFiles[ $key ];
-			$buffer = & $file[ kFILE_BUFFER ];
-			$tile = $buffer[ $this->mTileIndex ];
-		
-			//
-			// Handle multi band.
-			//
-			if( is_array( $tile ) )
-			{
-				//
-				// Reindex and check values.
-				//
-				$i = 1;
-				foreach( $tile as $index => $item )
-				{
-					//
-					// Check for no-data.
-					//
-					if( $item != $file[ kFILE_NODATA ] )
-						$data[ $key ][ $i ]
-							= & $tile[ $index ];
-					
-					//
-					// Iterate.
-					//
-					$i++;
-				
-				} // Iterating tile elements.
-			
-			} // Multiband.
-			
-			//
-			// Handle single band.
-			//
-			elseif( $tile != $file[ kFILE_NODATA ] )
-				$data[ $key ]
-					= & $tile;
-		
-		} // Iterating files.
-		
-		return $data;																// ==>
-			
-	} // _LoadCurrent.
+/*=======================================================================================
+ *																						*
+ *							PROTECTED COORDINATES INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
 
 	 
 	/*===================================================================================
-	 *	_Longitude																		*
+	 *	_Degrees																		*
 	 *==================================================================================*/
 
 	/**
-	 * Return current longitude.
+	 * Return degrees.
 	 *
-	 * This method will return the current longitude as an array og three elements: the
-	 * degrees in which negative values indicate the east, the minutes and the seconds.
+	 * This method will return a value in decimal degrees and degrees, minutes and seconds.
 	 *
-	 * The method accepts a parameter which can be used as a delta value expressed in
-	 * seconds.
+	 * The method accepts the following parameters:
 	 *
+	 * <ul>
+	 *	<li><b>&$theDegrees</b>: The reference will receive the decimal degrees value.
+	 *	<li><b>$theOrigin</b>: Coordinate origin in degrees.
+	 *	<li><b>$theIndex</b>: The current row or column.
+	 *	<li><b>$theDelta</b>: Eventual offset in seconds.
+	 * </ul>
+	 *
+	 * @param reference			   &$theDegrees			Receives decimal degrees.
+	 * @param integer				$theOrigin			Coordinate origin in degrees.
+	 * @param integer				$theIndex			Row or column index.
 	 * @param integer				$theDelta			Delta seconds.
 	 *
 	 * @access protected
 	 * @return array
 	 */
-	protected function _Longitude( $theDelta = 0 )
+	protected function _Degrees( &$theDegrees, $theOrigin, $theIndex, $theDelta = 0 )
 	{
 		//
 		// Get absolute seconds.
 		//
-		$position = (($this->mOrigin[ 0 ] * 3600) / $this->mSeconds)
-				  + $this->mCol
-//				  + $theDelta;
-				  + 1;
-echo( "$position<br>" );
+		$seconds = ( $theOrigin > 0 )
+				 ? (((($theOrigin * 3600) - $theDelta) / $this->mSeconds) - $theIndex)
+				  * $this->mSeconds
+				 : (((($theOrigin * 3600) + $theDelta) / $this->mSeconds) + $theIndex)
+				  * $this->mSeconds;
+		
+		//
+		// Convert to decimal degrees.
+		//
+		$theDegrees = $seconds / 3600;
 		
 		//
 		// Get degrees.
 		//
-		$tmp = ($position * $this->mSeconds) / 3600;
-		$degrees = ( $position >= 0 )
-				 ? floor( $tmp )
-				 : ceil( $tmp );
-echo( "$degrees<br>" );
+		$degrees = ( $seconds >= 0 )
+				 ? floor( $theDegrees )
+				 : ceil( $theDegrees );
 		
 		//
-		// Update position.
+		// Get minutes.
 		//
-		$position -= ($degrees * 3600);
-echo( "$position<br>" );
-exit;
-		
-		
+		$seconds -= ($degrees * 3600);
+		$minutes = floor( abs( $seconds / 60 ) );
 		
 		//
-		// Init local storage.
+		// Get seconds.
 		//
-		$seconds = ($this->Column() * $this->mSeconds) + $theDelta;
+		$seconds = abs( $seconds ) - ($minutes * 60);
 		
-		//
-		// Calculate degrees.
-		//
-		$tmp = $seconds / 3600;
-		$deg = ( $this->mOrigin[ 0 ] >= 0 )
-			 ? $this->mOrigin[ 0 ] - floor( $tmp )
-			 : $this->mOrigin[ 0 ] + ceil( $tmp );
-		
-		//
-		// Set sign.
-		//
-		$sign = ( $this->mOrigin[ 0 ] >= 0 )
-			  ? ( ($this->mOrigin[ 0 ] - $tmp) > 0 )
-			  : ( ($this->mOrigin[ 0 ] + $tmp) > 0 );
-		
-		//
-		// Update seconds.
-		//
-		$seconds -= (floor( $tmp ) * 3600);
-		
-		//
-		// Calculate minutes.
-		//
-		$tmp = $seconds / 60;
-		if( $this->mOrigin[ 0 ] > 0 )
-			$min = floor( $tmp );
-		elseif( $tmp )
-			$min = 60 - ceil( $tmp );
-		else
-			$min = 0;
-		
-		//
-		// Update seconds.
-		//
-		$seconds -= (floor( $tmp ) * 60);
-		
-		//
-		// Calculate seconds.
-		//
-		$sec = ( $this->mOrigin[ 0 ] >= 0 )
-			 ? $seconds
-			 : $seconds;
-		
-		return array( $sign, $deg, $min, $sec );											// ==>
+		return array( $degrees, $minutes, $seconds );								// ==>
 			
-	} // _Longitude.
+	} // _Degrees.
 
 	 
 
-} // class CBilReader.
+} // class CBilFilesIterator.
 
 
 ?>

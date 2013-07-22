@@ -2,14 +2,14 @@
 
 /*=======================================================================================
  *																						*
- *								CWorldclimService.inc.php								*
+ *								CGeoLayerService.inc.php								*
  *																						*
  *======================================================================================*/
  
 /**
- *	{@link CWorldclimService} definitions.
+ *	{@link CGeoLayerService} definitions.
  *
- *	This file contains common definitions used by the {@link CWorldclimService} class.
+ *	This file contains common definitions used by the {@link CGeoLayerService} class.
  *
  *	@package	WORLDCLIM30
  *	@subpackage	Services
@@ -51,14 +51,23 @@ define( "kAPI_OP_HELP",					'help' );
 define( "kAPI_OP_TILE",					'tiles' );
 
 /**
- * In.
+ * Contains.
  *
  * Retrieve tiles containing the provided point, or the tiles contained by the provided
  * rect or polygon.
  *
  * Type: no data.
  */
-define( "kAPI_OP_IN",					'contains' );
+define( "kAPI_OP_CONTAINS",				'contains' );
+
+/**
+ * Near.
+ *
+ * Retrieve tiles based on the distance from the provided geometry.
+ *
+ * Type: no data.
+ */
+define( "kAPI_OP_NEAR",					'near' );
 
 /*=======================================================================================
  *	MODIFIERS																			*
@@ -80,7 +89,7 @@ define( "kAPI_OP_COUNT",				'count' );
  *
  * Type: no data.
  */
-define( "kAPI_OP_REQUEST",				'request' );
+define( "kAPI_OP_REQUEST",				'copy-request' );
 
 /**
  * Connection.
@@ -89,7 +98,7 @@ define( "kAPI_OP_REQUEST",				'request' );
  *
  * Type: no data.
  */
-define( "kAPI_OP_CONNECTION",			'connection' );
+define( "kAPI_OP_CONNECTION",			'copy-connection' );
 
 /*=======================================================================================
  *	GEOMETRY PARAMETERS																	*
@@ -147,6 +156,22 @@ define( "kAPI_GEOMETRY_RECT",			'rect' );
  * Type: string.
  */
 define( "kAPI_GEOMETRY_POLY",			'poly' );
+
+/**
+ * Max distance.
+ *
+ * When requesting tiles by proximity, this parameter can be provided to limit the selection
+ * only to those tiles that are not farther than this value.
+ *
+ * The value is expressed in kilometers.
+ *
+ * Examples:
+ * <tt>1.250</tt>
+ * <tt>5.60125</tt>
+ *
+ * Type: string.
+ */
+define( "kAPI_GEOMETRY_DISTANCE",		'dist' );
 
 /*=======================================================================================
  *	ENVIRONMENT PARAMETERS																*

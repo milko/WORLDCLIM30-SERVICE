@@ -2,14 +2,14 @@
 
 /*=======================================================================================
  *																						*
- *									CBilReader.inc.php									*
+ *								CBilFilesIterator.inc.php								*
  *																						*
  *======================================================================================*/
  
 /**
- *	{@link CBilReader} definitions.
+ *	{@link CBilFilesIterator} definitions.
  *
- *	This file contains common definitions used by the {@link CBilReader} class.
+ *	This file contains common definitions used by the {@link CBilFilesIterator} class.
  *
  *	@package	GEO
  *	@subpackage	Framework
@@ -71,15 +71,6 @@ define( "kFILE_BPACK",					'bpack' );
  * Type: string.
  */
 define( "kFILE_BSIZE",					'bsize' );
-
-/**
- * Sigmed.
- *
- * This tag identifies the signed value flag.
- *
- * Type: boolean.
- */
-define( "kFILE_SIGNED",					'signed' );
 
 /**
  * No data.

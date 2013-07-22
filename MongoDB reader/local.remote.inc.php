@@ -2,7 +2,7 @@
 
 /*=======================================================================================
  *																						*
- *									local.inc.php										*
+ *								local.remote.inc.php									*
  *																						*
  *======================================================================================*/
  
@@ -27,7 +27,7 @@
  *
  * This tag indicates the default MongoDB server connection string.
  */
-define( "kDEFAULT_SERVER",					"mongodb://localhost:27017" );
+define( "kDEFAULT_SERVER",					"mongodb://192.168.181.101:27017" );
 
 /**
  * Default database name.
@@ -41,7 +41,7 @@ define( "kDEFAULT_DATABASE",				"GEO" );
  *
  * This tag indicates the default collection name.
  */
-define( "kDEFAULT_COLLECTION",				"LAYERS-30" );
+define( "kDEFAULT_COLLECTION",				"WORLDCLIM30" );
 
 /*=======================================================================================
  *	FILE PATHS																			*
@@ -53,7 +53,6 @@ define( "kDEFAULT_COLLECTION",				"LAYERS-30" );
  * This represents the base path to all the .bil files; the script expects to find a
  * directory and within it a file names as the file key.
  */
-//define( "kPATH_FILES", '/Users/gritadmin/Documents/Data/LAYERS-30' );
 define( "kPATH_FILES", '/Library/WebServer/Data/GeographicFeatures' );
 
 /*=======================================================================================

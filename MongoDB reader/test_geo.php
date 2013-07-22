@@ -60,11 +60,14 @@ try
 	$records = Array();
 	foreach( $rs as $record )
 	{
+	/*
 		$line = Array();
 		$line[0] = $record[ 'pt' ][ 'coordinates' ][ 0 ];
 		$line[1] = $record[ 'pt' ][ 'coordinates' ][ 1 ];
 		$line[2] = $record[ 'alt' ];
 		$records[] = $line;
+	*/
+		$records[] = $record;
 	}
 	print_r( $records );
 	echo( "\n" );
@@ -129,17 +132,32 @@ try
 	print_r( $command );
 	echo( "\n" );
 	$rs = $database->command( $command );
-	$records = Array();
-	foreach( $rs[ 'results' ] as $record )
-	{
-		$line = Array();
-		$line[0] = $record[ 'obj' ][ 'pt' ][ 'coordinates' ][ 0 ];
-		$line[1] = $record[ 'obj' ][ 'pt' ][ 'coordinates' ][ 1 ];
-		$line[2] = $record[ 'obj' ][ 'alt' ];
-		$line[3] = round( $record[ 'dis' ] );
-		$records[] = $line;
-	}
-	print_r( $records );
+	print_r( $rs );
+	echo( "\n" );
+	
+	//
+	// Test geoNear aggregated.
+	//
+	echo( "\nGEONEAR (aggregated)\n" );
+	$maxdist = 1000;
+	$command = array
+	(
+		'$geoNear' => array
+		(
+			'near' => array( -16.6422, 28.2727 ),
+			'distanceField' => 'distance',
+			'limit' => 5,
+			'maxDistance' => ($maxdist / 6378100),
+			'query' => array( 'alt' => array( '$gt' => 3200 ) ),
+			'spherical' => TRUE,
+			'distanceMultiplier' => 6378100,
+			'includeLocs' => 'pt'
+		)
+	);
+	print_r( $command );
+	echo( "\n" );
+	$rs = $collection->aggregate( $command );
+	print_r( $rs );
 	echo( "\n" );
 	
 	echo( "\nDONE\n" );

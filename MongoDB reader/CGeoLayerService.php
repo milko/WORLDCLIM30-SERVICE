@@ -1,9 +1,9 @@
 <?php
 
 /**
- * <i>CWorldclimService</i> class definition.
+ * <i>CGeoLayerService</i> class definition.
  *
- * This file contains the class definition of <b>CWorldclimService</b> which represents a
+ * This file contains the class definition of <b>CGeoLayerService</b> which represents a
  * web-service that can be used to query WORLDCLIM data.
  *
  *	@package	WORLDCLIM30
@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *								CWorldclimService.php									*
+ *								CGeoLayerService.php									*
  *																						*
  *======================================================================================*/
 
@@ -24,7 +24,7 @@
  *
  * This include file contains all class definitions.
  */
-require_once( "CWorldclimService.inc.php" );
+require_once( "CGeoLayerService.inc.php" );
 
 /**
  * <h4>WORLDCLIM web-service</h4>
@@ -35,7 +35,7 @@ require_once( "CWorldclimService.inc.php" );
  *	@package	WORLDCLIM30
  *	@subpackage	Services
  */
-class CWorldclimService extends ArrayObject
+class CGeoLayerService extends ArrayObject
 {
 	/**
 	 * <b>Server</b>
@@ -137,6 +137,15 @@ class CWorldclimService extends ArrayObject
 	 protected $mElevation = NULL;
 
 	/**
+	 * <b>Distance</b>
+	 *
+	 * This data member will hold the service request distance.
+	 *
+	 * @var numeric
+	 */
+	 protected $mDistance = NULL;
+
+	/**
 	 * <b>Start</b>
 	 *
 	 * This data member will hold the service record start.
@@ -162,6 +171,16 @@ class CWorldclimService extends ArrayObject
 	 * Type: double.
 	 */
 	const kTileDegs = 0.0041666666667;
+
+	/**
+	 * kDistMult.
+	 *
+	 * This integer value represents the distance multiplier: when requesting tiles based
+	 * on the distance, this value is used to obtain a distance in meters.
+	 *
+	 * Type: double.
+	 */
+	const kDistMult = 6378.1;
 
 		
 
@@ -581,8 +600,12 @@ class CWorldclimService extends ArrayObject
 					$this->_RequestTile();
 					break;
 
-				case kAPI_OP_IN:
-					$this->_RequestIn();
+				case kAPI_OP_CONTAINS:
+					$this->_RequestContains();
+					break;
+
+				case kAPI_OP_NEAR:
+					$this->_RequestNear();
 					break;
 	
 				default:
@@ -704,6 +727,11 @@ class CWorldclimService extends ArrayObject
 		// Parse elevation.
 		//
 		$this->_Elevation( $theRequest );
+		
+		//
+		// Parse distance.
+		//
+		$this->_Distance( $theRequest );
 		
 		//
 		// Parse paging.
@@ -965,10 +993,16 @@ class CWorldclimService extends ArrayObject
 				$theValue = kAPI_OP_TILE;
 		
 			//
-			// Check IN.
+			// Check CONTAINS.
 			//
-			elseif( array_key_exists( kAPI_OP_IN, $theValue ) )
-				$theValue = kAPI_OP_IN;
+			elseif( array_key_exists( kAPI_OP_CONTAINS, $theValue ) )
+				$theValue = kAPI_OP_CONTAINS;
+		
+			//
+			// Check NEAR.
+			//
+			elseif( array_key_exists( kAPI_OP_NEAR, $theValue ) )
+				$theValue = kAPI_OP_NEAR;
 		
 			//
 			// Ignore.
@@ -1265,7 +1299,7 @@ class CWorldclimService extends ArrayObject
 		// Handle string.
 		//
 		if( ($theValue !== NULL)
-			 && ($theValue !== FALSE) )
+		 && ($theValue !== FALSE) )
 		{
 			//
 			// Extract.
@@ -1306,6 +1340,84 @@ class CWorldclimService extends ArrayObject
 		return $this->_ManageMember( $this->mElevation, $theValue, $getOld );		// ==>
 	
 	} // _Elevation.
+
+	 
+	/*===================================================================================
+	 *	_Distance																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get, set or rettrieve the maximum distance.
+	 *
+	 * This method manages the maximum distance value, it accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><tt>$theValue</tt>: The distance in kilometers or method operation:
+	 *	 <ul>
+	 *		<li><tt>NULL</tt>: Return the current distance.
+	 *		<li><tt>FALSE</tt>: Reset the current value (defaults to <tt>NULL</tt>).
+	 *		<li><tt>array</tt>: An array indicates that we provided the request and this
+	 *			must be parsed to set the requested value.
+	 *		<li><i>other</i>: Any other value will be considered the maximum distance.
+	 *	 </ul>
+	 *	<li><tt>$getOld</tt>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><tt>TRUE</tt>: Return the value of the property <i>before</i> it was
+	 *			eventually modified.
+	 *		<li><tt>FALSE</tt>: Return the value of the property <i>after</i> it was
+	 *			eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method accepts float and integer distances, any other type will be cast to
+	 * float.
+	 * 
+	 *
+	 * @param mixed					$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access protected
+	 * @return mixed
+	 */
+	protected function _Distance( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Parse request.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Check DISTANCE.
+			//
+			if( array_key_exists( kAPI_GEOMETRY_DISTANCE, $theValue ) )
+				$theValue = $theValue[ kAPI_GEOMETRY_DISTANCE ];
+		
+			//
+			// Ignore.
+			//
+			else
+				$theValue = NULL;
+		
+		} // Provided request.
+		
+		//
+		// Handle value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Cast.
+			//
+			if( (! is_int( $theValue ))
+			 && (! is_float( $theValue )) )
+				$theValue = (double) $theValue;
+		
+		} // Provided list.
+		
+		return $this->_ManageMember( $this->mDistance, $theValue, $getOld );		// ==>
+	
+	} // _Distance.
 
 	 
 	/*===================================================================================
@@ -1596,7 +1708,7 @@ class CWorldclimService extends ArrayObject
 
 	 
 	/*===================================================================================
-	 *	_RequestIn																		*
+	 *	_RequestContains																*
 	 *==================================================================================*/
 
 	/**
@@ -1607,7 +1719,7 @@ class CWorldclimService extends ArrayObject
 	 *
 	 * @access protected
 	 */
-	protected function _RequestIn()
+	protected function _RequestContains()
 	{
 		//
 		// Check geometry.
@@ -1669,6 +1781,7 @@ class CWorldclimService extends ArrayObject
 				{
 					$this->_Status( kAPI_STATUS_MESSAGE, 'Reduced limit to default.' );
 					$limit = $this->_Limit( kAPI_DEFAULT_LIMIT );
+					$this->_Limit( $limit );
 				}
 			
 			} // Not counting.
@@ -1740,7 +1853,167 @@ class CWorldclimService extends ArrayObject
 				( "Unable to handle request: "
 				 ."missing geometry." );										// !@! ==>
 	
-	} // _RequestIn.
+	} // _RequestContains.
+
+	 
+	/*===================================================================================
+	 *	_RequestNear																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle in service.
+	 *
+	 * This method will return the tile that contains the provided point, or all tiles
+	 * contained by the provided rect or polygon.
+	 *
+	 * @access protected
+	 */
+	protected function _RequestNear()
+	{
+		//
+		// Check geometry.
+		//
+		if( ($geometry = $this->_Geometry()) !== NULL )
+		{
+			//
+			// Init local storage.
+			//
+			$do_count = $this->_Modifiers( kAPI_OP_COUNT );
+			
+			//
+			// Parse by geometry.
+			//
+			switch( $type = $geometry[ 'type' ] )
+			{
+				case 'Point':
+					break;
+				
+				default:
+					throw new Exception
+						( "Unable to handle request: "
+						 ."invalid geometry type [$type] for operation." );		// !@! ==>
+			
+			} // Checked geometry.
+			
+			//
+			// Enforce limits.
+			//
+			if( ! $do_count )
+			{
+				//
+				// Reset start.
+				//
+				$this->_Start( FALSE );
+				
+				//
+				// Get limits.
+				//
+				$limit = $this->_Limit();
+				if( $limit === NULL )
+				{
+					$this->_Status( kAPI_STATUS_MESSAGE, 'Enforced paging.' );
+					$limit = $this->_Limit( kAPI_DEFAULT_LIMIT );
+				}
+				
+				//
+				// Check limits.
+				//
+				if( $limit > kAPI_DEFAULT_LIMIT )
+				{
+					$this->_Status( kAPI_STATUS_MESSAGE, 'Reduced limit to default.' );
+					$limit = $this->_Limit( kAPI_DEFAULT_LIMIT );
+					$this->_Limit( $limit );
+				}
+			
+			} // Not counting.
+			
+			//
+			// Init operation.
+			//
+			$op = array(
+				'$geoNear' => array(
+					'includeLocs' => 'pt',
+					'near' => $geometry[ 'coordinates' ],
+					'spherical' => TRUE,
+					'distanceMultiplier' => self::kDistMult,
+					'distanceField' => 'distance',
+					'limit' => $limit ) );
+			$ref = & $op[ '$geoNear' ];
+			
+			//
+			// Add distance.
+			//
+			if( ($tmp = $this->_Distance()) !== NULL )
+				$ref[ 'query' ][ 'maxDistance' ] = ($tmp / self::kDistMult);
+			
+			//
+			// Add elevation.
+			//
+			if( ($tmp = $this->_Elevation()) !== NULL )
+			{
+				if( ! array_key_exists( 'query', $ref ) )
+					$ref[ 'query' ] = Array();
+				$ref[ 'query' ][ 'alt' ]
+					= array( '$gte' => $tmp[ 0 ],
+							 '$lte' => $tmp[ 1 ] );
+			}
+			
+			//
+			// Perform query.
+			//
+			$results = $this->Collection()->aggregate( $op );
+			if( $results[ 'ok' ] )
+			{
+				//
+				// Use results.
+				//
+				$results = ( array_key_exists( 'result', $results ) )
+						 ? $results[ 'result' ]
+						 : Array();
+			
+				//
+				// Set total.
+				//
+				$this->_Status( kAPI_STATUS_TOTAL, count( $results ) );
+			
+				//
+				// Handle count.
+				//
+				if( $this->_Modifiers( kAPI_OP_COUNT ) !== NULL )
+					$this->_BuildResponse();
+			
+				//
+				// Load results.
+				//
+				else
+				{
+					//
+					// Set limit.
+					//
+					$this->_Status( kAPI_STATUS_LIMIT, $limit );
+				
+					//
+					// Set count.
+					//
+					$this->_Status( kAPI_STATUS_COUNT, count( $results ) );
+				
+					//
+					// Set results.
+					//
+					$this->_BuildResponse( $results );
+			
+				} // Not a count.
+				
+			} // Successful.
+			
+		} // Provided geometry.
+		
+		else
+			throw new Exception
+				( "Unable to handle request: "
+				 ."missing geometry." );										// !@! ==>
+	
+	} // _RequestNear.
 
 		
 
@@ -2518,7 +2791,7 @@ class CWorldclimService extends ArrayObject
 
 	 
 
-} // class CWorldclimService.
+} // class CGeoLayerService.
 
 
 ?>

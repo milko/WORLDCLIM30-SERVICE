@@ -1,20 +1,20 @@
 <?php
 	
 /**
- * WORLDCLIM 30 service.
+ * Geographic layers service.
  *
- * This file contains the scripts to handle the WORLDCLIM 30 seconds service.
+ * This file contains the scripts to handle the geographic layers service.
  *
- *	@package	WORLDCLIM
+ *	@package	GEO
  *	@subpackage	Service
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 16/07/2013
+ *	@version	1.00 21/07/2013
  */
 
 /*=======================================================================================
  *																						*
- *									WORLDCLIM30.php										*
+ *									GeoLayers.php										*
  *																						*
  *======================================================================================*/
 
@@ -30,7 +30,7 @@ require_once( 'local.inc.php' );
  *
  * This include file contains the service class definitions.
  */
-require_once( "CWorldclimService.php" );
+require_once( "CGeoLayerService.php" );
 
 
 /*=======================================================================================
@@ -40,7 +40,7 @@ require_once( "CWorldclimService.php" );
 //
 // Instantiate service.
 //
-$wrapper = new CWorldclimService( kDEFAULT_SERVER, kDEFAULT_DATABASE, kDEFAULT_COLLECTION );
+$wrapper = new CGeoLayerService( kDEFAULT_SERVER, kDEFAULT_DATABASE, kDEFAULT_COLLECTION );
 if( $wrapper->Status() == kAPI_STATE_ERROR )
 	exit( json_encode( $wrapper->getArrayCopy() ) );								// ==>
 
