@@ -82,6 +82,15 @@ define( "kFILE_BSIZE",					'bsize' );
 define( "kFILE_NODATA",					'ndata' );
 
 /**
+ * Translation table.
+ *
+ * This tag identifies the value translation table.
+ *
+ * Type: array.
+ */
+define( "kFILE_TRANS",					'trans' );
+
+/**
  * Pointer.
  *
  * This tag identifies the file pointer.
@@ -100,6 +109,23 @@ define( "kFILE_POINTER",				'fp' );
  * Type: array.
  */
 define( "kFILE_BUFFER",					'buf' );
+
+/*=======================================================================================
+ *	ENVIRONMENT																			*
+ *======================================================================================*/
+
+/**
+ * Check first.
+ *
+ * This flag indicates whether to check for valid data on all files or only on the first
+ * one: if the flag is <tt>FALSE</tt>, the {@link current()} method will scan the data of
+ * all provided files; if the flag is <tt>TRUE</tt>, if the first file has data, all files
+ * data will be scanned, if not, it is assumed the other files have no data and these will
+ * not be scanned.
+ *
+ * Type: string.
+ */
+define( "kENV_CHECK_ONLY_FIRST",		TRUE );
 
 
 ?>

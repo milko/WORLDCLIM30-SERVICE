@@ -93,4 +93,16 @@ define( "kBUF_TILE_COUNT", 21600 );
  */
 define( "kBUF_RECORD_COUNT", 4096 );
 
+/*=======================================================================================
+ *	ENVIRONMENT																			*
+ *======================================================================================*/
+
+/**
+ * Verbose.
+ *
+ * Debugging information will be echoed if this flag is set and the script is called via
+ * the command line.
+ */
+define( "kENV_VERBOSE", TRUE );
+
 ?>

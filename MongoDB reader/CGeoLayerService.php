@@ -182,6 +182,15 @@ class CGeoLayerService extends ArrayObject
 	 */
 	const kDistMult = 6378.1;
 
+	/**
+	 * kKilometerDegs.
+	 *
+	 * This double value represents 1 kilometer in degrees.
+	 *
+	 * Type: double.
+	 */
+	const kKilometerDegs = 0.00898270828655;
+
 		
 
 /*=======================================================================================
@@ -604,6 +613,10 @@ class CGeoLayerService extends ArrayObject
 					$this->_RequestContains();
 					break;
 
+				case kAPI_OP_INTERSECTS:
+					$this->_RequestIntersects();
+					break;
+
 				case kAPI_OP_NEAR:
 					$this->_RequestNear();
 					break;
@@ -997,6 +1010,12 @@ class CGeoLayerService extends ArrayObject
 			//
 			elseif( array_key_exists( kAPI_OP_CONTAINS, $theValue ) )
 				$theValue = kAPI_OP_CONTAINS;
+		
+			//
+			// Check INTERSECTS.
+			//
+			elseif( array_key_exists( kAPI_OP_INTERSECTS, $theValue ) )
+				$theValue = kAPI_OP_INTERSECTS;
 		
 			//
 			// Check NEAR.
@@ -1712,10 +1731,13 @@ class CGeoLayerService extends ArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * Handle in service.
+	 * Handle contains service.
 	 *
 	 * This method will return the tile that contains the provided point, or all tiles
 	 * contained by the provided rect or polygon.
+	 *
+	 * If you provide a point this will be converted to a sphere, if also the distance was
+	 * provided, or to a rect extending 15 seconds in all sides if no distance was provided.
 	 *
 	 * @access protected
 	 */
@@ -1737,7 +1759,14 @@ class CGeoLayerService extends ArrayObject
 			switch( $type = $geometry[ 'type' ] )
 			{
 				case 'Point':
-					$geometry = $this->_Point2Rect( $geometry );
+					if( ($dist = $this->_Distance()) !== NULL )
+						$geometry = _Point2Sphere( $geometry, $dist );
+					else
+					{
+						$geometry = $this->_Point2Rect( $geometry );
+						$geometry = $this->_Rect2Polygon( $geometry );
+					}
+					break;
 				
 				case 'Rect':
 					$geometry = $this->_Rect2Polygon( $geometry );
@@ -1789,7 +1818,11 @@ class CGeoLayerService extends ArrayObject
 			//
 			// Init query.
 			//
-			$query = array( 'pt' =>
+			$query = ( isset( $dist ) )
+				   ? array( 'pt' =>
+						array( '$geoWithin' =>
+							array( '$centerSphere' => $geometry ) ) )
+				   : array( 'pt' =>
 						array( '$geoWithin' =>
 							array( '$geometry' => $geometry ) ) );
 			
@@ -1854,6 +1887,158 @@ class CGeoLayerService extends ArrayObject
 				 ."missing geometry." );										// !@! ==>
 	
 	} // _RequestContains.
+
+	 
+	/*===================================================================================
+	 *	_RequestIntersects																*
+	 *==================================================================================*/
+
+	/**
+	 * Handle intersects service.
+	 *
+	 * This method will return the tiles that intersect with the provided geometry.
+	 *
+	 * If you provide a point this will be converted to a rect, if no distance was provided,
+	 * the rect will extend 15 seconds in all directions, if the distance was provided, the
+	 * rect will span that distance in all directions from the provided point..
+	 *
+	 * @access protected
+	 */
+	protected function _RequestIntersects()
+	{
+		//
+		// Check geometry.
+		//
+		if( ($geometry = $this->_Geometry()) !== NULL )
+		{
+			//
+			// Init local storage.
+			//
+			$do_count = $this->_Modifiers( kAPI_OP_COUNT );
+			
+			//
+			// Parse by geometry.
+			//
+			switch( $type = $geometry[ 'type' ] )
+			{
+				case 'Point':
+					$geometry = $this->_Point2Rect( $geometry, $this->_Distance() );
+				
+				case 'Rect':
+					$geometry = $this->_Rect2Polygon( $geometry );
+				
+				case 'Polygon':
+					break;
+				
+				default:
+					throw new Exception
+						( "Unable to handle request: "
+						 ."invalid geometry type [$type] for operation." );		// !@! ==>
+			
+			} // Checked geometry.
+			
+			//
+			// Enforce limits.
+			//
+			if( ! $do_count )
+			{
+				//
+				// Get limits.
+				//
+				$start = $this->_Start();
+				$limit = $this->_Limit();
+				
+				//
+				// Enforce limits.
+				//
+				if( $start === NULL )
+					$start = $this->_Start( 0 );
+				if( $limit === NULL )
+				{
+					$this->_Status( kAPI_STATUS_MESSAGE, 'Enforced paging.' );
+					$limit = $this->_Limit( kAPI_DEFAULT_LIMIT );
+				}
+				
+				//
+				// Check limits.
+				//
+				if( $limit > kAPI_DEFAULT_LIMIT )
+				{
+					$this->_Status( kAPI_STATUS_MESSAGE, 'Reduced limit to default.' );
+					$limit = $this->_Limit( kAPI_DEFAULT_LIMIT );
+					$this->_Limit( $limit );
+				}
+			
+			} // Not counting.
+			
+			//
+			// Init query.
+			//
+			$query = array( 'pt' =>
+						array( '$geoIntersects' =>
+							array( '$geometry' => $geometry ) ) );
+			
+			//
+			// Add elevation.
+			//
+			if( ($elevation = $this->_Elevation()) !== NULL )
+				$query[ 'alt' ] = array( '$gte' => $elevation[ 0 ],
+										 '$lte' => $elevation[ 1 ] );
+			
+			//
+			// Perform query.
+			//
+			$results = $this->Collection()->find( $query );
+			
+			//
+			// Set total.
+			//
+			$this->_Status( kAPI_STATUS_TOTAL, $results->count( FALSE ) );
+			
+			//
+			// Handle count.
+			//
+			if( $this->_Modifiers( kAPI_OP_COUNT ) !== NULL )
+				$this->_BuildResponse();
+			
+			//
+			// Load results.
+			//
+			else
+			{
+				//
+				// Skip to start.
+				//
+				$this->_Status( kAPI_STATUS_START, $start );
+				if( $start )
+					$results->skip( $start );
+				
+				//
+				// Set limit.
+				//
+				$this->_Status( kAPI_STATUS_LIMIT, $limit );
+				$results->limit( $limit );
+				
+				//
+				// Set count.
+				//
+				$this->_Status( kAPI_STATUS_COUNT, $results->count( TRUE ) );
+				
+				//
+				// Set results.
+				//
+				$this->_BuildResponse( iterator_to_array( $results ) );
+			
+			} // Not a count.
+		
+		} // Provided geometry.
+		
+		else
+			throw new Exception
+				( "Unable to handle request: "
+				 ."missing geometry." );										// !@! ==>
+	
+	} // _RequestIntersects.
 
 	 
 	/*===================================================================================
@@ -2348,17 +2533,24 @@ class CGeoLayerService extends ArrayObject
 	/**
 	 * Transform a point into a rect.
 	 *
-	 * This method will transform the provided point into a rect where the vertices are
-	 * 15 seconds in either direction.
+	 * This method will transform the provided point into a rect with a dimension depending
+	 * on the second provided parameter:
+	 *
+	 * <ul>
+	 *	<li><tt>0</tt>: A zero distance means that we want a rect the size of a tile, where
+	 *		the vertices are 15 seconds in either direction.
+	 *	<li><i>other</i>: Any other value will be converted to a floar and used to calculate
+	 *		the rect that will expand by the provided value in all directions.
 	 *
 	 * The method will return a GeoJSON rect.
 	 *
 	 * @param array					$theCoordinate		GeoJson point.
+	 * @param float					$theRadius			Radius in kilometers.
 	 *
 	 * @access protected
 	 * @return array
 	 */
-	protected function _Point2Rect( $theCoordinate )
+	protected function _Point2Rect( $theCoordinate, $theRadius = 0 )
 	{
 		//
 		// Check point.
@@ -2369,32 +2561,35 @@ class CGeoLayerService extends ArrayObject
 			// Init local storage.
 			//
 			$ptcoords = & $theCoordinate[ 'coordinates' ];
+			$offset = ( $theRadius )
+					? self::kKilometerDegs
+					: self::kTileDegs;
 			
 			//
 			// Set left.
 			//
-			$left = $ptcoords[ 0 ] - self::kTileDegs;
+			$left = $ptcoords[ 0 ] - $offset;
 			if( $left < -180 )
 				$left = 180 - ($left + 180);
 			
 			//
 			// Set right.
 			//
-			$right = $ptcoords[ 0 ] + self::kTileDegs;
+			$right = $ptcoords[ 0 ] + $offset;
 			if( $right > 180 )
 				$right = -180 + ($right - 180);
 			
 			//
 			// Set top.
 			//
-			$top = $ptcoords[ 1 ] + self::kTileDegs;
+			$top = $ptcoords[ 1 ] + $offset;
 			if( $top > 90 )
 				$top = -90 + ($top - 90);
 			
 			//
 			// Set bottom.
 			//
-			$bottom = $ptcoords[ 1 ] - self::kTileDegs;
+			$bottom = $ptcoords[ 1 ] - $offset;
 			if( $bottom < -90 )
 				$bottom = 90 - ($bottom + 90);
 			
@@ -2411,6 +2606,40 @@ class CGeoLayerService extends ArrayObject
 			 ."expecting a point, received [$tmp]." );							// !@! ==>
 	
 	} // _Point2Rect.
+
+	 
+	/*===================================================================================
+	 *	_Point2Sphere																	*
+	 *==================================================================================*/
+
+	/**
+	 * Transform a point into a sphere.
+	 *
+	 * This method will transform the provided point into a sphere using the second
+	 * parameter as the sphere radius expressed in kilometers.
+	 *
+	 * The method will return an array of two elements: the coordinates and the radius in
+	 * radians.
+	 *
+	 * @param array					$theCoordinate		GeoJson point.
+	 * @param float					$theRadius			Radius in kilometers.
+	 *
+	 * @access protected
+	 * @return array
+	 */
+	protected function _Point2Sphere( $theCoordinate, $theRadius )
+	{
+		//
+		// Check point.
+		//
+		if( ($tmp = $theCoordinate[ 'type' ]) == 'Point' )
+			return array( $theCoordinate[ 'coordinates' ], $theRadius / 6371 );		// ==>
+		
+		throw new Exception
+			( "Unable to handle request: "
+			 ."expecting a point, received [$tmp]." );							// !@! ==>
+	
+	} // _Point2Sphere.
 
 	 
 	/*===================================================================================

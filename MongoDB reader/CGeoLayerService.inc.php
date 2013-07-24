@@ -61,6 +61,15 @@ define( "kAPI_OP_TILE",					'tiles' );
 define( "kAPI_OP_CONTAINS",				'contains' );
 
 /**
+ * Intersects.
+ *
+ * Retrieve tiles intersecting the provided rect or polygon.
+ *
+ * Type: no data.
+ */
+define( "kAPI_OP_INTERSECTS",			'intersects' );
+
+/**
  * Near.
  *
  * Retrieve tiles based on the distance from the provided geometry.
@@ -160,8 +169,16 @@ define( "kAPI_GEOMETRY_POLY",			'poly' );
 /**
  * Max distance.
  *
- * When requesting tiles by proximity, this parameter can be provided to limit the selection
- * only to those tiles that are not farther than this value.
+ * This parameter can be used for two purposes:
+ *
+ * <ul>
+ *	<li><i>Convert a point</i>:: When a point is provided as a geometry and the distance is
+ *		also provided, this means that we are looking at a sphere, where the distance is its
+ *		radius. This is only valid when searching for tiles contained in the provided
+ *		geometry, when searching for intersections, the point will be converted to a rect.
+ *	<li><i>Maximum distance</i>: When requesting tiles by proximity, the distance can be
+ *		used to limit the search to tiles within the provided value.
+ * </ul>
  *
  * The value is expressed in kilometers.
  *
@@ -169,7 +186,7 @@ define( "kAPI_GEOMETRY_POLY",			'poly' );
  * <tt>1.250</tt>
  * <tt>5.60125</tt>
  *
- * Type: string.
+ * Type: float.
  */
 define( "kAPI_GEOMETRY_DISTANCE",		'dist' );
 

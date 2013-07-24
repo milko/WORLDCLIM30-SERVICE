@@ -422,6 +422,9 @@ class CBilFilesIterator implements Iterator
 	 *		<li><tt>V</tt>: unsigned long (always 32 bit, little endian byte order)
 	 *	 </ul>
 	 *	<li><b>$theNull</b>: Value used to indicate no data.
+	 *	<li><b>$theTrans</b>: Eventual translation table for controlled vocabularies: the
+	 *		value must be an array in which the key corresponds to the value read from the
+	 *		file and the value is the replacement data.
 	 * </ul>
 	 *
 	 * The method will set the files list member and return the entry.
@@ -431,6 +434,7 @@ class CBilFilesIterator implements Iterator
 	 * @param integer				$theBands			Bands count.
 	 * @param integer				$theKind			Bands kind.
 	 * @param integer				$theNull			No data value.
+	 * @param array					$theTrans			Replacement table.
 	 *
 	 * @access public
 	 * @return array
@@ -441,7 +445,8 @@ class CBilFilesIterator implements Iterator
 							 $thePath,
 							 $theBands = 1,
 							 $theKind = 's',
-							 $theNull = -9999 )
+							 $theNull = -9999,
+							 $theTrans = NULL )
 	{
 		//
 		// Delete entry.
@@ -517,6 +522,7 @@ class CBilFilesIterator implements Iterator
 				$file[ kFILE_BPACK ] = (string) $theKind;
 				$file[ kFILE_BSIZE ] = $bytes;
 				$file[ kFILE_NODATA ] = $theNull;
+				$file[ kFILE_TRANS ] = $theTrans;
 				$file[ kFILE_POINTER ] = NULL;
 				$file[ kFILE_BUFFER ] = Array();
 				
@@ -712,8 +718,8 @@ class CBilFilesIterator implements Iterator
 			= $this->_Degrees(
 				$top_dec, $this->mOrigin[ 1 ], $this->mRow );
 		$top_dms = ( $top_dec < 0 )
-				 ? abs($top_dms[ 0 ]).'°'.$top_dms[ 1 ]."'".$top_dms[ 2 ].'"N'
-				 : abs($top_dms[ 0 ]).'°'.$top_dms[ 1 ]."'".$top_dms[ 2 ].'"S';
+				 ? abs($top_dms[ 0 ]).'°'.$top_dms[ 1 ]."'".$top_dms[ 2 ].'"S'
+				 : abs($top_dms[ 0 ]).'°'.$top_dms[ 1 ]."'".$top_dms[ 2 ].'"N';
 		
 		//
 		// Get bottom.
@@ -722,8 +728,8 @@ class CBilFilesIterator implements Iterator
 			= $this->_Degrees(
 				$bot_dec, $this->mOrigin[ 1 ], $this->mRow, $this->mSeconds );
 		$bot_dms = ( $bot_dec < 0 )
-				 ? abs($bot_dms[ 0 ]).'°'.$bot_dms[ 1 ]."'".$bot_dms[ 2 ].'"N'
-				 : abs($bot_dms[ 0 ]).'°'.$bot_dms[ 1 ]."'".$bot_dms[ 2 ].'"S';
+				 ? abs($bot_dms[ 0 ]).'°'.$bot_dms[ 1 ]."'".$bot_dms[ 2 ].'"S'
+				 : abs($bot_dms[ 0 ]).'°'.$bot_dms[ 1 ]."'".$bot_dms[ 2 ].'"N';
 		
 		//
 		// Set decimal rect.
@@ -831,6 +837,8 @@ class CBilFilesIterator implements Iterator
 	 *
 	 * Return current element.
 	 *
+	 * The method will iterate all files
+	 *
 	 * @access public
 	 * @return array
 	 */
@@ -839,6 +847,7 @@ class CBilFilesIterator implements Iterator
 		//
 		// Init local storage.
 		//
+		$first = TRUE;
 		$data = Array();
 		
 		//
@@ -873,9 +882,19 @@ class CBilFilesIterator implements Iterator
 						continue;											// =>
 					
 					//
+					// Handle translation table.
+					//
+					if( is_array( $file[ kFILE_TRANS ] ) )
+					{
+						if( array_key_exists( $item, $file[ kFILE_TRANS ] ) )
+							$data[ $key ][ $i ] = $file[ kFILE_TRANS ][ $item ];
+					}
+					
+					//
 					// Set data.
 					//
-					$data[ $key ][ $i ] = $tile[ $index ];
+					else
+						$data[ $key ][ $i ] = $item;
 				
 				} // Iterating tile elements.
 						
@@ -894,11 +913,34 @@ class CBilFilesIterator implements Iterator
 					continue;												// =>
 				
 				//
+				// Handle translation table.
+				//
+				if( is_array( $file[ kFILE_TRANS ] ) )
+				{
+					if( array_key_exists( $tile, $file[ kFILE_TRANS ] ) )
+						$data[ $key ] = $file[ kFILE_TRANS ][ $tile ];
+				}
+				
+				//
 				// Set data.
 				//
-				$data[ $key ] = $tile;
+				else
+					$data[ $key ] = $tile;
 			
 			} // Singleband.
+			
+			//
+			// Skip other files if first has no data.
+			//
+			if( kENV_CHECK_ONLY_FIRST
+			 && $first
+			 && (! count( $data )) )
+				break;
+			
+			//
+			// Reset first file flag.
+			//
+			$first = FALSE;
 		
 		} // Iterating files.
 		

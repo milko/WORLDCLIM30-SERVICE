@@ -93,12 +93,12 @@ try
 	//
 	echo( '<h4>Test CONTAINS</h4>' );
 	$op = kAPI_OP_CONTAINS;
-//	$geo = kAPI_GEOMETRY_POINT.'='.implode( ',', array( -16.6463, 28.2768 ) );
+	$geo = kAPI_GEOMETRY_POINT.'='.implode( ',', array( -16.6463, 28.2768 ) );
 //	$geo = kAPI_GEOMETRY_RECT.'='
 //		.implode( ',', array( -16.6463,28.2768 ) )
 //		.';'
 //		.implode( ',', array( -16.6380,28.2685 ) );
-	$geo = kAPI_GEOMETRY_POLY.'='
+/*	$geo = kAPI_GEOMETRY_POLY.'='
 		.implode( ',', array( 9.5387,46.2416 ) )
 		.';'
 		.implode( ',', array( 9.5448,46.2369 ) )
@@ -122,7 +122,7 @@ try
 		.implode( ',', array( 9.5463,46.2443 ) )
 		.';'
 		.implode( ',', array( 9.5445,46.2422 ) );
-	$mod = implode( '&', array( kAPI_OP_REQUEST, kAPI_OP_CONNECTION ) );
+*/	$mod = implode( '&', array( kAPI_OP_REQUEST, kAPI_OP_CONNECTION ) );
 	$request = "$url?$op&$mod&$geo";
 	echo( "Request: <code>$request</code><br />" );
 	echo( '<h5>$response = file_get_contents( $request );</h5>' );
@@ -131,6 +131,7 @@ try
 	$response = json_decode( $response );
 	echo( 'Response<pre>' ); print_r( $response ); echo( '</pre>' );
 	echo( '<hr />' );
+exit;
 
 	//
 	// Test CONTAINS (count).
